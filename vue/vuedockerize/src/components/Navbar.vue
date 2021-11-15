@@ -17,7 +17,7 @@
                             <font-awesome-icon icon="user-alt" />
                         </router-link>
                     </div>
-                    <div class="route route--icon">
+                    <div @click="logout" class="route route--icon">
                         <font-awesome-icon icon="sign-out-alt" />
                     </div>
                 </div>
@@ -27,13 +27,17 @@
 </template>
 <script>
 import useAuth from '../modules/auth/composables/useAuth';
-
+import { useRouter } from 'vue-router';
 export default {
   setup() {
-    const { username } = useAuth()
-    
+    const { username, logout } = useAuth()
+    const router = useRouter()
     return {
-      username
+      username,
+      logout: () => {
+          logout()
+          router.push({ name: 'login' })
+      }
     }
   }
 }
