@@ -7,11 +7,15 @@ const generalApi = axios.create({
 
 generalApi.interceptors.response.use(
     function(response) {
-        Swal.fire({
-            title: 'Success',
-            html: response.data.message,
-            icon: 'info'
-        })
+        if(response.data.message)
+        {
+            Swal.fire({
+                title: 'Success',
+                html: response.data.message,
+                icon: 'info'
+            })
+        }
+        
          return response;
     }, 
     function(error) {
@@ -33,5 +37,13 @@ generalApi.interceptors.response.use(
             icon: type
         })
     });
+
+generalApi.interceptors.request.use( (config) => {
+        config.headers = {
+            'Authorization' : 'Bearer '+ localStorage.getItem('token')
+        }
+        return config
+})
+
 
 export default generalApi
