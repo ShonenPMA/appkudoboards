@@ -13,12 +13,23 @@ const useKudoboard = ( ) => {
         return resp
     }
 
-    
+    const loadMembers = async() => {
+        const resp = await store.dispatch('kudoboard/loadMembers')
+        return resp
+    }
+
+    const sendKudo = async(kudoForm) => {
+        const resp = await store.dispatch('kudoboard/sendKudo', kudoForm)
+        return resp
+    }
     
     return {
         loadKudoboards,
         loadKudos,
+        loadMembers,
+        sendKudo,
         kudos: computed( () => store.state.kudoboard.kudos),
+        members: computed( () => store.state.kudoboard.members ),
 
         kudoboardsByTerm: (term) => store.getters['kudoboard/getKudoboardsByTerm'](term),
         getKudoboardById: (kudoboardId) => store.getters['kudoboard/getKudoboardById'](kudoboardId),

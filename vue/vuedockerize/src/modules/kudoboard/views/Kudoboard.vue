@@ -94,15 +94,15 @@ export default {
         width: 24%;
         margin-bottom: 2rem;
 
-        &:nth-child(2n+4)
+        &:nth-child(5n+2)
         {
             background-color: var(--pink);
         }
-        &:nth-child(3n+3)
+        &:nth-child(5n+3)
         {
             background-color: var(--skyblue);
         }
-        &:nth-child(4n+2)
+        &:nth-child(5n+4)
         {
             background-color: var(--green);
         }

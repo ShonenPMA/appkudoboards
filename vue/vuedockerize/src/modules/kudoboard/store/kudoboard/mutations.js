@@ -12,3 +12,11 @@ export const setKudos = (state, kudos) => {
 export const restarKudoLoading = (state) => {
     state.isLoadingKudos = true
 }
+export const restarMembersLoading = (state) => {
+    state.isLoadingMembers = true
+}
+
+export const setMembers = (state, members) => {
+    state.members = [...members]
+    state.isLoadingMembers = false
+}
