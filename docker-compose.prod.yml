@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+
+  my-app-prod:
+    build:
+      context: ./vue/
+      dockerfile: Dockerfile-prod
+    ports:
+      - '${PROD_PORT}:80'

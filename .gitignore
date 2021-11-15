@@ -1,0 +1,17 @@
+*.yml
+!docker-compose.yml
+!docker-compose.prod.yml
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# local env files
+.env.local
+.env.*.local
+.env

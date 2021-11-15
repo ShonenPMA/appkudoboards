@@ -1,0 +1,10 @@
+version: '3'
+services:
+  vue:
+    build: ./vue
+    image: vueapp:0.0.2
+    volumes:
+      - './vue/vuedockerize:/app'
+      - './vue/vuedockerize/node_modules:/app/node_modules'
+    ports:
+      - "${DEV_PORT}:8080"
