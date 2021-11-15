@@ -5,9 +5,7 @@
             <div class="router">
                 <div class="routes">
                     <div class="route">
-                        <router-link :to="{ name: 'kudoboard-list'}">
-                            Kudoboards
-                        </router-link>
+                        <router-link :to="{ name: 'kudoboard-list'}">Kudoboards</router-link>
                     </div>
                 </div>
                 <div class="buttons">

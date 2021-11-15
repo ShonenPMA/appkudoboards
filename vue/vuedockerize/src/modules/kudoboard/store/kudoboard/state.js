@@ -1,4 +1,6 @@
 export default () => ({
     isLoading: true,
-    kudoboards: []
+    isLoadingKudos: true,
+    kudoboards: [],
+    kudos: []
 })
