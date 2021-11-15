@@ -15,6 +15,7 @@ const useAuth = () => {
         return resp
     }
     const loginUser = async(user) => {
+        console.log('dispatch login...')
         const resp = await store.dispatch('auth/signInUser', user)
         return resp
     }
@@ -22,12 +23,17 @@ const useAuth = () => {
     const logout = () => {
         store.commit('auth/logout')
     }
+    const checkAuthStatus = async() => {
+        const resp = await store.dispatch('auth/checkAuthentication')
+        return resp
+    }
 
     return {
         createUser,
         loginUser,
         updateUser,
         logout,
+        checkAuthStatus,
 
         username: computed( () => store.getters['auth/username'])
     }

@@ -22,13 +22,22 @@ generalApi.interceptors.response.use(
         // handle error
         let message =  error.response.data.message
         let type = 'error'
-        // form request Errors
-        if(error.response.data.errors){
+
+        if(error.response.data.errors ){
             const errors = error.response.data.errors
-            const firstInputError = errors[Object.keys(errors)[0]]
-            const firstError = firstInputError[Object.keys(firstInputError)[0]][0]
+            if( errors[0] && typeof errors[0] === 'string')
+            {
+                message = errors[0]         
+            }else
+            {
+                const firstInputError = errors[Object.keys(errors)[0]]
+                const firstError = firstInputError[Object.keys(firstInputError)[0]][0]
+                message = firstError
+                
+            }
+            
             type= 'warning'
-            message = firstError
+            
         }
 
         Swal.fire({

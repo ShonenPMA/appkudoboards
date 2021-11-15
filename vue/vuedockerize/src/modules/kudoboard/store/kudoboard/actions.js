@@ -18,3 +18,16 @@ export const loadKudoboards = async({commit}) => {
 
     commit('setKudoboards', kudoboards)
 }
+
+export const loadKudos = async({commit}, kudoboardId) => {
+    commit('restarKudoLoading')
+    const { data } = await generalApi.get(`/kudo/indexFromKudoboard/${kudoboardId}`)
+    const { data: kudos } = data
+
+    if(kudos)
+    {
+        commit('setKudos', [])
+    }
+
+    commit('setKudos', kudos)
+}

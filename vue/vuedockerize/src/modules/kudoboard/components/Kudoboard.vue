@@ -1,5 +1,5 @@
 <template>
-    <div class="kudoboard">
+    <div @click="$router.push({ name: 'kudoboard-item', params: { id: kudoboard.id}})" class="kudoboard">
         <h2>{{ shortname }}</h2>
     </div>
 </template>

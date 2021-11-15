@@ -7,3 +7,13 @@ export const getKudoboardsByTerm = (state) => (term = '') => {
 
     return state.kudoboards.filter( kudoboard => kudoboard.title.toLowerCase().includes(term.toLowerCase()))
 }
+
+export const getKudoboardById = (state) => ( id ) => {
+    const kudoboard = state.kudoboards.find( item => {
+        return item.id == id
+    } )
+
+    if(!kudoboard) return
+
+    return { ...kudoboard }
+}

@@ -68,7 +68,7 @@ export const checkAuthentication = async({commit}) => {
          return { ok:true}
         
     } catch (error) {
-        // commit('logout')
+        commit('logout')
         return { ok:false}
     }
 }

@@ -2,7 +2,7 @@
 	<div v-if="isLoading" class="container">
         <div class="alert">
             <div>
-				Espere por favor...
+				Loading data...
 				<span>
 					<font-awesome-icon class="fa-spin" icon="sync" />
 				</span>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue';
+import { defineAsyncComponent, onMounted } from 'vue';
 import useKudoboard from '../composables/useKudoboard';
 
 export default {
