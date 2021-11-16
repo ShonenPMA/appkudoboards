@@ -19,9 +19,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- <CreateTeamModal
+	<CreateTeamModal
 		@reload="reloadTeams"
-		 /> -->
+		 />
 </template>
 
 <script>
@@ -31,7 +31,7 @@ import useTeam from '../composables/useTeam';
 export default {
 	components: {
 		List : defineAsyncComponent( () => import('../components/TeamList.vue')),
-		// CreateTeamModal: defineAsyncComponent( () => import('../components/CreateTeamModal.vue'))
+		CreateTeamModal: defineAsyncComponent( () => import('../components/CreateTeamModal.vue'))
 	},
 	setup() {
 

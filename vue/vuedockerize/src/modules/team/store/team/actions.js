@@ -24,3 +24,23 @@ export const loadTeams = async({commit}) => {
     }
     
 }
+
+export const createTeam = async({commit}, teamForm) => {
+    try {
+        const { name } = teamForm
+
+        const { data } = await generalApi.post('/team', {
+            name
+        })
+
+        const team = data.data
+
+        if(!data.data) return {ok: false}
+
+        commit('addTeam', team)
+
+        return {ok: true}
+    } catch (error) {
+        return {ok: false}
+    }
+}
