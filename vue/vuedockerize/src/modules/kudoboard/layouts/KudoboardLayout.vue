@@ -73,7 +73,8 @@ export default {
 
 		.kudoboard {
 			&-list{
-				height: 100%;
+				height: calc(100% - 100px);
+				padding-bottom: 100px;
 			}
 
 			&-template{

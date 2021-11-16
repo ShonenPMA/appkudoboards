@@ -38,11 +38,13 @@
                 @reload="reloadKudos"
                 v-if="kudoboard.type == 'project'"
                 :projectId="kudoboard.kudoable_id"
+                :kudoboardId="parseInt(kudoboard.id)"
             />
             <TeamModal 
                 @reload="reloadKudos"
                 v-if="kudoboard.type == 'team'"
                 :teamId="kudoboard.kudoable_id"
+                :kudoboardId="parseInt(kudoboard.id)"
             />
         </div>
     </div>

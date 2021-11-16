@@ -36,6 +36,10 @@ export default {
         teamId: {
             type: Number,
             required: true
+        },
+        kudoboardId: {
+            type: Number,
+            required: true
         }
     },
     emits: ['reload'],
@@ -53,7 +57,7 @@ export default {
         const placeholder = ref('Write something special for someone today...')
 
         const kudoForm = ref({
-            kudoboardId: parseInt(route.params.id),
+            kudoboardId: props.kudoboardId,
             memberSelected: '',
             description: ''
         })
