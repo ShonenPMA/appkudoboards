@@ -44,3 +44,53 @@ export const createTeam = async({commit}, teamForm) => {
         return {ok: false}
     }
 }
+
+export const loadMembers = async({commit}, id) => {
+    const { data } = await generalApi.get(`/teamUser/${id}`)
+    const members = data.data
+    
+    if( !members)
+    {
+        commit('setMembers', [])
+        return 
+    }  
+
+    commit('setMembers', members)
+}
+
+export const loadGeneralMembers = async({commit}) => {
+    const { data } = await generalApi.get('/user/indexExceptAuth')
+    const members = data.data
+    
+    if( !members)
+    {
+        commit('setGeneralMembers', [])
+        return 
+    }  
+
+    commit('setGeneralMembers', members)
+}
+
+export const registerMember = async({commit}, {data, id})=> {
+    const { memberSelected } = data
+
+    try {
+        const { data } = await generalApi.post('/teamUser',{
+            team_id: id,
+            user_id : memberSelected.id
+        })
+
+        if(!data.data) return {ok:false}
+
+        commit('addMember', data.data)
+        return {ok: true}
+    } catch (error) {
+        return {ok:false}
+    }
+}
+export const deleteMember = async({commit}, id) => {
+    
+    await generalApi.delete(`/teamUser/${id}`)
+
+    commit('removeMember', id)
+}

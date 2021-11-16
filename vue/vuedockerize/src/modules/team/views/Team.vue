@@ -1,6 +1,172 @@
 <template>
-    <h1>Team view</h1>
+    <div v-if="team" class="box">
+        <div class="teamForms">
+            <form @submit.prevent="editTeam">
+                <input class="title" type="text" v-model="teamName">
+            </form>
+            <font-awesome-icon @click="removeTeam" icon="trash-alt" />
+        </div>
+        <hr>
+        <form @submit.prevent="onSubmit">
+            <select v-model="newMemberForm.memberSelected">
+                <option value="">Select a new member to register</option>
+                <option v-for="member in generalMembers" :id="member.id" :value="member">
+                    {{ member.name }} ({{ member.email }})
+                </option>
+            </select>
+            <button type="submit" :disabled="!newMemberForm.memberSelected">Register new member</button>
+        </form>
+        <hr>
+        <div v-if="isLoadingMembers" class="container">
+            <div class="alert">
+                <div>
+                    Loading data...
+                    <span>
+                        <font-awesome-icon class="fa-spin" icon="sync" />
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="member-list" v-if="members.length > 0 && !isLoadingMembers">
+            <div v-for="member in members" :key="member.id" class="member">
+                <div class="member-wrapper">
+                      <div class="data">
+                          <div>
+                                <font-awesome-icon  icon="user-tie" />
+                                <span>{{ member.user.name }}</span>
+                          </div>
+                          <font-awesome-icon @click="removeMember(member.id)" icon="trash-alt" />
+                      </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div v-else-if="!isLoadingMembers">
+            <h2>There are not members yet. :c</h2>
+        </div>
+    </div>
 </template>
+<script>
+import useTeam from '../composables/useTeam'
+import { watch, computed, ref } from 'vue';
+import {  useRouter } from 'vue-router';
+import Swal from 'sweetalert2';
+export default {
+    props: {
+        id: {
+            type: String,
+            required:true
+        }
+    },
+    setup(props) {
+        const router = useRouter()
+
+        const { 
+            registerMember,
+            deleteMember,
+            loadMembers,
+            loadGeneralMembers,
+            getTeamById,
+            members,
+            generalMembers,
+            isLoadingMembers,
+            editCurrentTeam,
+            loadTeams,
+            deleteTeam,
+            } = useTeam(props.id)
+
+        loadGeneralMembers()
+        let team = computed(() => null )
+        let teamName = computed(() => null)
+        
+        const loadTeam = () => {
+            loadMembers(props.id)
+            team = computed( () => getTeamById(props.id))
+
+            if(!team) router.push({ name: 'team-list' })
+
+            teamName =computed(() => team.value.name)
+        }
+        loadTeam()
+
+        const newMemberForm = ref({
+            memberSelected: ''
+        })
+
+        
+        
+        watch( 
+            () => props.id,
+            ( /*value, prevValue*/) => loadTeam()
+        )
+        return {
+            team,
+            members,
+            generalMembers,
+            isLoadingMembers,
+            newMemberForm,
+            teamName,
+            
+
+            onSubmit: async() => {
+                const { ok } = await registerMember(newMemberForm.value, parseInt(props.id))
+
+                if(ok)
+                {
+                    newMemberForm.value.memberSelected = ''
+                }
+            },
+            removeMember: async(id) => {
+                const { isConfirmed } = await Swal.fire({
+                    title: '¿Are you sure?',
+                    text: 'It cannot be recovered ',
+                    showDenyButton: true,
+                    confirmButtonText: "Yes, I'm sure"
+                })
+            
+                if(isConfirmed)
+                {
+                    new Swal({
+                        title: 'Wait please...',
+                        allowOutsideClick: false
+                    })
+                    Swal.showLoading()
+
+                    await deleteMember(id)
+                    Swal.fire('Deleted', 'Member removed', 'success')
+                }
+            },
+            editTeam: async() => {
+                const { ok} = await editCurrentTeam(teamName.value, props.id)
+
+                if(ok) loadTeams()
+            },
+            removeTeam: async() => {
+                const { isConfirmed } = await Swal.fire({
+                    title: '¿Are you sure?',
+                    text: 'It cannot be recovered ',
+                    showDenyButton: true,
+                    confirmButtonText: "Yes, I'm sure"
+                })
+            
+                if(isConfirmed)
+                {
+                    new Swal({
+                        title: 'Wait please...',
+                        allowOutsideClick: false
+                    })
+                    Swal.showLoading()
+
+                    await deleteTeam(props.id)
+                    Swal.fire('Deleted', 'Team removed', 'success')
+                    loadTeams()
+                    router.push({ name: 'team-list' })
+                }
+            }
+        }
+    }
+}
+</script>
 <style lang="scss" scoped>
 .box
 {
