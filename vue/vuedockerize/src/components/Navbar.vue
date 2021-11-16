@@ -10,6 +10,9 @@
                     <div class="route">
                         <router-link :to="{ name: 'project-list'}">Projects</router-link>
                     </div>
+                    <div class="route">
+                        <router-link :to="{ name: 'team-list'}">Teams</router-link>
+                    </div>
                 </div>
                 <div class="buttons">
                     <div class="route">
