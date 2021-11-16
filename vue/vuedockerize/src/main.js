@@ -6,6 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { 
     faFolder,
     faHandHoldingHeart,
+    faPlus,
     faSignOutAlt,
     faSync,
     faUserAlt,
@@ -17,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(
     faFolder,
     faHandHoldingHeart,
+    faPlus,
     faSignOutAlt, 
     faSync,
     faUserAlt,

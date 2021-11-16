@@ -4,17 +4,44 @@
 import generalApi from "@/api/generalApi"
 
 export const loadProjects = async({commit}) => {
+    try {
+        const { data } = await generalApi.get('/project/indexFromAuthUser')
 
-    const { data } = await generalApi.get('/project/indexFromAuthUser')
+        if( !data.data)
+        {
+            commit('setProjects', [])
+            return 
+        }
 
-    if( !data.data)
-    {
-        commit('setProjects', [])
-        return 
+
+        const projects = data.data
+
+        commit('setProjects', projects)
+
+        return { ok:true}
+    } catch (error) {
+        return { ok:false}
     }
+    
+}
 
 
-    const projects = data.data
+export const createProject = async({commit}, projectForm) => {
+    try {
+        const { name } = projectForm
 
-    commit('setProjects', projects)
+        const { data } = await generalApi.post('/project', {
+            name
+        })
+
+        const project = data.data
+
+        if(!data.data) return {ok: false}
+
+        commit('addProject', project)
+
+        return {ok: true}
+    } catch (error) {
+        return {ok: false}
+    }
 }

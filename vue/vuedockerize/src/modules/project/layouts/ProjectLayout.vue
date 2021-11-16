@@ -19,6 +19,9 @@
 			</div>
 		</div>
 	</div>
+	<CreateProjectModal
+		@reload="reloadProjects"
+		 />
 </template>
 
 <script>
@@ -27,14 +30,17 @@ import useProject from '../composables/useProject';
 
 export default {
 	components: {
-		List : defineAsyncComponent( () => import('../components/ProjectList.vue'))
+		List : defineAsyncComponent( () => import('../components/ProjectList.vue')),
+		CreateProjectModal: defineAsyncComponent( () => import('../components/CreateProjectModal.vue'))
 	},
 	setup() {
 
 		const { isLoading, loadProjects } = useProject()
 		loadProjects()
 		return {
-			isLoading
+			isLoading,
+
+			reloadProjects: () => loadProjects()
 		}
 	}
 }
