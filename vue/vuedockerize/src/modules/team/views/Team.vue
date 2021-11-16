@@ -77,7 +77,7 @@ export default {
 
         loadGeneralMembers()
         let team = computed(() => null )
-        let teamName = computed(() => null)
+        let teamName = ref(null)
         
         const loadTeam = () => {
             loadMembers(props.id)
@@ -85,7 +85,7 @@ export default {
 
             if(!team) router.push({ name: 'team-list' })
 
-            teamName =computed(() => team.value.name)
+            teamName.value =team.value.name
         }
         loadTeam()
 

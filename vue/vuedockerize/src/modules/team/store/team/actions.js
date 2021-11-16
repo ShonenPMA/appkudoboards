@@ -44,6 +44,20 @@ export const createTeam = async({commit}, teamForm) => {
         return {ok: false}
     }
 }
+export const editTeam = async({commit}, {data, id}) => {
+    try {
+        const { data: response} = await generalApi.put(`/team/${id}`, {
+            name: data
+        })
+
+        if(!response.data) return {ok:false}
+
+        commit('updateTeam', response.data)
+        return {ok: true}
+    } catch (error) {
+        return {ok: false}
+    }
+}
 
 export const loadMembers = async({commit}, id) => {
     const { data } = await generalApi.get(`/teamUser/${id}`)
@@ -57,7 +71,6 @@ export const loadMembers = async({commit}, id) => {
 
     commit('setMembers', members)
 }
-
 export const loadGeneralMembers = async({commit}) => {
     const { data } = await generalApi.get('/user/indexExceptAuth')
     const members = data.data
@@ -70,7 +83,6 @@ export const loadGeneralMembers = async({commit}) => {
 
     commit('setGeneralMembers', members)
 }
-
 export const registerMember = async({commit}, {data, id})=> {
     const { memberSelected } = data
 
