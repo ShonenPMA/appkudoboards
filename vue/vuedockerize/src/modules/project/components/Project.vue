@@ -1,7 +1,6 @@
 <template>
-<!-- @click="$router.push({ name: 'project-item', params: { id: project.id}})" -->
     <div 
-        
+        @click="$router.push({ name: 'project-item', params: { id: project.id}})"        
         class="project">
         <h2><font-awesome-icon icon="folder" /> {{ project.name }}</h2>
     </div>

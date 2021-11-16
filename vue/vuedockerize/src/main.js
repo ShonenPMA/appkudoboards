@@ -9,9 +9,11 @@ import {
     faPlus,
     faSignOutAlt,
     faSync,
+    faTrashAlt,
     faUserAlt,
     faUserPlus,
     faUsers,
+    faUserTie,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -21,9 +23,11 @@ library.add(
     faPlus,
     faSignOutAlt, 
     faSync,
+    faTrashAlt,
     faUserAlt,
     faUserPlus,
     faUsers,
+    faUserTie,
 )
 
 createApp(App)
