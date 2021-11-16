@@ -44,6 +44,31 @@ export const loadMembers = async({commit}) => {
 
     commit('setMembers', members)
 }
+export const loadProjectMembers = async({commit}, kudoboardId) => {
+    const { data } = await generalApi.get(`/user/indexFromProject/${kudoboardId}`)
+    const members = data.data
+    
+    if( !members)
+    {
+        commit('setMembers', [])
+        return 
+    }  
+
+    commit('setMembers', members)
+}
+
+export const loadTeamMembers = async({commit}, kudoboardId) => {
+    const { data } = await generalApi.get(`/user/indexFromTeam/${kudoboardId}`)
+    const members = data.data
+    
+    if( !members)
+    {
+        commit('setMembers', [])
+        return 
+    }  
+
+    commit('setMembers', members)
+}
 
 
 export const sendKudo = async({commit}, kudo) =>{

@@ -33,18 +33,20 @@
 import checkBirthday from '../helpers/checkBirthday';
 import { defineAsyncComponent, ref } from 'vue'
 import useKudoboard from '../composables/useKudoboard'
+import { useStore } from 'vuex';
 export default {
     components:
     {
         Modal: defineAsyncComponent( () => import('@/components/Modal.vue'))
     },
     setup() {
+        const store = useStore()
         
         const { 
             loadMembers, 
             sendKudo,
             members } = useKudoboard()
-        loadMembers()
+        
 
         const placeholder = ref('Write something special for someone today...')
 
@@ -57,12 +59,20 @@ export default {
         
         const isOpen = ref(false)
 
-        const closeModal = () => isOpen.value = false
+        const closeModal = () => {
+            store.commit('kudoboard/cleanMembers')
+            return   isOpen.value = false
+        }
+        const openModal = () =>
+        {
+            loadMembers()
+            return isOpen.value = true
+        }
 
         return {
             isOpen,
 
-            openModal: () => isOpen.value = true,
+            openModal,
             closeModal,
 
 
@@ -94,56 +104,5 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-button
-        {
-            padding: 1rem 2rem;
-            border: 8px solid var(--orange);
-            border-top: none;
-            border-right: none;
-            display: flex;
-            cursor: pointer;
-
-            &:last-child
-            {
-                border-right: 8px solid var(--orange);
-            }
-
-            span
-            {
-                display: block;
-                text-align: center;
-                margin-bottom: 10px;
-            }
-        }
-.form
-    {
-        width: 95%;
-        margin: 0 auto;
-        form{
-            
-            select{
-                box-sizing: border-box;
-                width: 100%;
-                margin-bottom: 2rem;
-                padding: 0.5rem 1rem;
-            }
-            textarea
-            {
-                box-sizing: border-box;
-                height: 200px;
-                width: 100%;
-                padding: 0.5rem 1rem;
-            }
-            button
-            {
-                margin: 0 auto;
-                border: none;
-                display: block;
-                width: 100%;
-                background-color: var(--green);
-                font-size: 1.2rem;
-                letter-spacing: 0.3rem;
-            }
-        }
-    }
+    @import '../css/modal.scss';
 </style>

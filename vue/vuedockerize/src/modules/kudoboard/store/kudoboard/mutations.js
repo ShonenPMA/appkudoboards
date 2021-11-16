@@ -20,3 +20,8 @@ export const setMembers = (state, members) => {
     state.members = [...members]
     state.isLoadingMembers = false
 }
+
+export const cleanMembers = (state) => {
+    state.members = []
+    state.isLoadingMembers = false
+}

@@ -34,9 +34,16 @@
         </div>
         <div class="buttons">
             <PersonalModal />
-            <ProjectModal v-if="kudoboard.type == 'project'" />
-            <TeamModal v-if="kudoboard.type == 'team'" />
-
+            <ProjectModal 
+                @reload="reloadKudos"
+                v-if="kudoboard.type == 'project'"
+                :projectId="kudoboard.kudoable_id"
+            />
+            <TeamModal 
+                @reload="reloadKudos"
+                v-if="kudoboard.type == 'team'"
+                :teamId="kudoboard.kudoable_id"
+            />
         </div>
     </div>
 </template>
@@ -83,7 +90,9 @@ export default {
         return {
             kudoboard,
             kudos,
-            isLoadingKudos
+            isLoadingKudos,
+
+            reloadKudos: () => loadKudos(props.id)
         }
     }
 }

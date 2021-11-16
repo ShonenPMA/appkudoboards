@@ -1,5 +1,23 @@
 <template>
-    <button>
+    <Modal 
+        v-if="isOpen"
+        @on:close="closeModal"
+        title="Send Team Kudo"
+     >
+     <div class="form">
+        <form @submit.prevent="onSubmit">
+            <select v-model="kudoForm.memberSelected" @change="selectMember">
+                <option value="">Select a member</option>
+                <option v-for="member in members" :id="member.id" :value="member">
+                    {{ member.name }} ({{ member.email }})
+                </option>
+            </select>
+            <textarea v-model="kudoForm.description" :placeholder="placeholder"></textarea>
+            <button type="submit" :disabled="!kudoForm.memberSelected">Send Kudo</button>
+        </form>
+    </div>
+    </Modal>
+    <button @click="openModal">
         <div>
             <span>Send Team Kudo</span>
             <font-awesome-icon icon="users" />
@@ -7,26 +25,85 @@
         
     </button>
 </template>
-<style lang="scss" scoped>
-button
-        {
-            padding: 1rem 2rem;
-            border: 8px solid var(--orange);
-            border-top: none;
-            border-right: none;
-            display: flex;
-            cursor: pointer;
-
-            &:last-child
-            {
-                border-right: 8px solid var(--orange);
-            }
-
-            span
-            {
-                display: block;
-                text-align: center;
-                margin-bottom: 10px;
-            }
+<script>
+import checkBirthday from '../helpers/checkBirthday';
+import { defineAsyncComponent, ref } from 'vue'
+import useKudoboard from '../composables/useKudoboard'
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
+export default {
+    props:{
+        teamId: {
+            type: Number,
+            required: true
         }
+    },
+    emits: ['reload'],
+    components:
+    {
+        Modal: defineAsyncComponent( () => import('@/components/Modal.vue'))
+    },
+    setup(props, context) {
+        const route = useRoute()
+        const store = useStore()
+        const { 
+            loadTeamMembers: loadMembers, 
+            sendKudo,
+            members } = useKudoboard()
+        const placeholder = ref('Write something special for someone today...')
+
+        const kudoForm = ref({
+            kudoboardId: parseInt(route.params.id),
+            memberSelected: '',
+            description: ''
+        })
+        
+        const isOpen = ref(false)
+
+        const closeModal = () => {
+            store.commit('kudoboard/cleanMembers')
+            return   isOpen.value = false
+        }
+        const openModal = () =>
+        {
+            loadMembers(props.teamId)
+            return isOpen.value = true
+        }
+
+        return {
+            isOpen,
+
+            openModal,
+            closeModal,
+
+
+            kudoForm,
+            members,
+            checkBirthday,            
+            placeholder,
+            selectMember: () => {
+                if(kudoForm.value.memberSelected != '')
+                {
+                    placeholder.value = `Write something special for ${kudoForm.value.memberSelected.name} today...`
+                }
+            },
+            onSubmit: async()=> {
+                const { ok } = await sendKudo(kudoForm.value)
+
+                if( ok )
+                {
+                    kudoForm.value.kudoboardId = ''
+                    kudoForm.value.memberSelected = ''
+                    kudoForm.value.description = ''
+                    placeholder.value = 'Write something special for someone today...'
+                    context.emit('reload')
+                    closeModal()
+                }
+            } 
+        }
+    }
+}
+</script>
+<style lang="scss" scoped>
+@import '../css/modal.scss';
 </style>
