@@ -4,19 +4,24 @@ import router from './router'
 import store from './store'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { 
+    faFolder,
+    faHandHoldingHeart,
     faSignOutAlt,
-    faUserAlt,
     faSync,
-    faPlus,
-    faHandHoldingHeart } from '@fortawesome/free-solid-svg-icons'
+    faUserAlt,
+    faUserPlus,
+    faUsers,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
+    faFolder,
+    faHandHoldingHeart,
     faSignOutAlt, 
-    faUserAlt,
     faSync,
-    faPlus,
-    faHandHoldingHeart
+    faUserAlt,
+    faUserPlus,
+    faUsers,
 )
 
 createApp(App)

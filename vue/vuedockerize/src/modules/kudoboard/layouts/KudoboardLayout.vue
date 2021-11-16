@@ -69,6 +69,7 @@ export default {
 		width: 100%;
 		height: 100%;
 		display: flex;
+		overflow-x: hidden;
 
 		.kudoboard {
 			&-list{
@@ -76,8 +77,10 @@ export default {
 			}
 
 			&-template{
-				height: 100%;
+				height: calc(100% - 100px);
 				width: 100%;
+				overflow-y: auto;
+				padding-bottom: 100px;
 			}
 		}
 	}

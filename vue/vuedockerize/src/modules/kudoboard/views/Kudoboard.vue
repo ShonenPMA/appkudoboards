@@ -32,13 +32,26 @@
         <div v-else-if="!isLoadingKudos">
             <h2>There are not kudos yet. :c</h2>
         </div>
+        <div class="buttons">
+            <PersonalModal />
+            <ProjectModal v-if="kudoboard.type == 'project'" />
+            <TeamModal v-if="kudoboard.type == 'team'" />
+
+        </div>
     </div>
 </template>
 <script>
 import useKudoboard from '../composables/useKudoboard'
-import { watch, computed } from 'vue';
+import { watch, computed, defineAsyncComponent } from 'vue';
 import {  useRouter } from 'vue-router';
 export default {
+    components:
+    {
+        PersonalModal: defineAsyncComponent( () => import('../components/PersonalModal.vue')),
+        ProjectModal: defineAsyncComponent( () => import('../components/ProjectModal.vue')),
+        TeamModal: defineAsyncComponent( () => import('../components/TeamModal.vue'))
+
+    },
     props: {
         id: {
             type: String,
@@ -148,5 +161,19 @@ export default {
 			margin-top: 1rem;
 		}
 	}
+
+    .buttons
+    {
+        display: flex;
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        width: 100%;
+        padding: 0px;
+        justify-content: center;
+        background-color: var(--black);
+        border-top: 8px solid var(--orange);
+
+    }
 }
 </style>
