@@ -31,6 +31,7 @@ body
   --pink: #F472B6;
   --skyblue: #93C5FD;
   --indigo: #A5B4FC;
+  --black : #111827;
 }
 </style>
 <script>

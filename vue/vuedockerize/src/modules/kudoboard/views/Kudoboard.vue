@@ -32,13 +32,33 @@
         <div v-else-if="!isLoadingKudos">
             <h2>There are not kudos yet. :c</h2>
         </div>
+        <div class="buttons">
+            <PersonalModal />
+            <ProjectModal 
+                @reload="reloadKudos"
+                v-if="kudoboard.type == 'project'"
+                :projectId="kudoboard.kudoable_id"
+            />
+            <TeamModal 
+                @reload="reloadKudos"
+                v-if="kudoboard.type == 'team'"
+                :teamId="kudoboard.kudoable_id"
+            />
+        </div>
     </div>
 </template>
 <script>
 import useKudoboard from '../composables/useKudoboard'
-import { watch, computed } from 'vue';
+import { watch, computed, defineAsyncComponent } from 'vue';
 import {  useRouter } from 'vue-router';
 export default {
+    components:
+    {
+        PersonalModal: defineAsyncComponent( () => import('../components/PersonalModal.vue')),
+        ProjectModal: defineAsyncComponent( () => import('../components/ProjectModal.vue')),
+        TeamModal: defineAsyncComponent( () => import('../components/TeamModal.vue'))
+
+    },
     props: {
         id: {
             type: String,
@@ -70,7 +90,9 @@ export default {
         return {
             kudoboard,
             kudos,
-            isLoadingKudos
+            isLoadingKudos,
+
+            reloadKudos: () => loadKudos(props.id)
         }
     }
 }
@@ -94,15 +116,15 @@ export default {
         width: 24%;
         margin-bottom: 2rem;
 
-        &:nth-child(2n+4)
+        &:nth-child(5n+2)
         {
             background-color: var(--pink);
         }
-        &:nth-child(3n+3)
+        &:nth-child(5n+3)
         {
             background-color: var(--skyblue);
         }
-        &:nth-child(4n+2)
+        &:nth-child(5n+4)
         {
             background-color: var(--green);
         }
@@ -148,5 +170,19 @@ export default {
 			margin-top: 1rem;
 		}
 	}
+
+    .buttons
+    {
+        display: flex;
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        width: 100%;
+        padding: 0px;
+        justify-content: center;
+        background-color: var(--black);
+        border-top: 8px solid var(--orange);
+
+    }
 }
 </style>
