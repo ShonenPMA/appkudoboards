@@ -1,8 +1,11 @@
 <template>
     <div v-if="project" class="box">
-        <form @submit.prevent="editProject">
-            <input class="title" type="text" v-model="projectName">
-        </form>
+        <div class="projectForms">
+            <form @submit.prevent="editProject">
+                <input class="title" type="text" v-model="projectName">
+            </form>
+            <font-awesome-icon @click="removeProject" icon="trash-alt" />
+        </div>
         <hr>
         <form @submit.prevent="onSubmit">
             <select v-model="newMemberForm.memberSelected">
@@ -24,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="member-list" v-if="members.length > 1 && !isLoadingMembers">
+        <div class="member-list" v-if="members.length > 0 && !isLoadingMembers">
             <div v-for="member in members" :key="member.id" class="member">
                 <div class="member-wrapper">
                       <div class="data">
@@ -69,20 +72,22 @@ export default {
             isLoadingMembers,
             editCurrentProject,
             loadProjects,
+            deleteProject,
             } = useProject(props.id)
 
         loadGeneralMembers()
         let project = computed(() => null )
+        let projectName = computed(() => null)
         
         const loadProject = () => {
             loadMembers(props.id)
             project = computed( () => getProjectById(props.id))
 
             if(!project) router.push({ name: 'project-list' })
+
+            projectName =computed(() => project.value.name)
         }
         loadProject()
-
-        const projectName =ref(project.value.name)
 
         const newMemberForm = ref({
             memberSelected: ''
@@ -135,6 +140,28 @@ export default {
                 const { ok} = await editCurrentProject(projectName.value, props.id)
 
                 if(ok) loadProjects()
+            },
+            removeProject: async() => {
+                const { isConfirmed } = await Swal.fire({
+                    title: '¿Are you sure?',
+                    text: 'It cannot be recovered ',
+                    showDenyButton: true,
+                    confirmButtonText: "Yes, I'm sure"
+                })
+            
+                if(isConfirmed)
+                {
+                    new Swal({
+                        title: 'Wait please...',
+                        allowOutsideClick: false
+                    })
+                    Swal.showLoading()
+
+                    await deleteProject(props.id)
+                    Swal.fire('Deleted', 'Project removed', 'success')
+                    loadProjects()
+                    router.push({ name: 'project-list' })
+                }
             }
         }
     }
@@ -144,6 +171,19 @@ export default {
 .box
 {
     padding: 2rem;
+
+    .projectForms{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .fa-trash-alt
+        {
+            cursor: pointer;
+            color: var(--red);
+            font-size: 2rem;
+        }
+    }
 
     .title{
         text-align: left;

@@ -15,6 +15,11 @@ export const updateProject = (state, project) => {
     state.projects[idx] = project
 }
 
+export const removeProject = (state, id) => {
+    console.log('looking for remove', id)
+    state.projects = state.projects.filter( e => e.id !== id)
+}
+
 export const addMember = (state, member) => {
     state.members = [member, ...state.members]
 }

@@ -62,6 +62,10 @@ export const editProject = async({commit}, {data, id}) => {
     }
 }
 
+export const removeProject = async({commit}, id) => {
+    await generalApi.delete(`/project/${id}`)
+    commit('removeProject', id)
+}
 
 export const loadMembers = async({commit}, id) => {
     const { data } = await generalApi.get(`/projectUser/${id}`)
