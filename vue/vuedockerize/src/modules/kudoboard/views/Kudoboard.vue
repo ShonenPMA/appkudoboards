@@ -11,7 +11,7 @@
                 </div>
             </div>
         </div>
-        <div class="kudo-list" v-if="kudos.length > 1 && !isLoadingKudos">
+        <div class="kudo-list" v-if="kudos.length > 0 && !isLoadingKudos">
             <div v-for="kudo in kudos" :key="kudo.id" class="kudo">
                 <div class="kudo-wrapper">
                     <div class="kudo-head">
