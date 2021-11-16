@@ -16,7 +16,6 @@ export const updateProject = (state, project) => {
 }
 
 export const removeProject = (state, id) => {
-    console.log('looking for remove', id)
     state.projects = state.projects.filter( e => e.id !== id)
 }
 

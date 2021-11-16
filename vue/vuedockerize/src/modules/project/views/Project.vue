@@ -48,6 +48,7 @@
 </template>
 <script>
 import useProject from '../composables/useProject'
+import useKudoboard from '../../kudoboard/composables/useKudoboard';
 import { watch, computed, ref } from 'vue';
 import {  useRouter } from 'vue-router';
 import Swal from 'sweetalert2';
@@ -74,10 +75,12 @@ export default {
             loadProjects,
             deleteProject,
             } = useProject(props.id)
+        
+        const { loadKudoboards } = useKudoboard()
 
         loadGeneralMembers()
         let project = computed(() => null )
-        let projectName = computed(() => null)
+        let projectName = ref(null)
         
         const loadProject = () => {
             loadMembers(props.id)
@@ -85,7 +88,7 @@ export default {
 
             if(!project) router.push({ name: 'project-list' })
 
-            projectName =computed(() => project.value.name)
+            projectName.value = project.value.name
         }
         loadProject()
 
@@ -139,7 +142,10 @@ export default {
             editProject: async() => {
                 const { ok} = await editCurrentProject(projectName.value, props.id)
 
-                if(ok) loadProjects()
+                if(ok) {
+                    loadProjects()
+                    loadKudoboards()
+                } 
             },
             removeProject: async() => {
                 const { isConfirmed } = await Swal.fire({
@@ -160,6 +166,7 @@ export default {
                     await deleteProject(props.id)
                     Swal.fire('Deleted', 'Project removed', 'success')
                     loadProjects()
+                    loadKudoboards()
                     router.push({ name: 'project-list' })
                 }
             }
