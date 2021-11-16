@@ -26,6 +26,7 @@
 <script>
 import { defineAsyncComponent, ref } from 'vue'
 import useProject from '../composables/useProject'
+import useKudoboard from '../../kudoboard/composables/useKudoboard';
 export default {
     components:
     {
@@ -35,6 +36,8 @@ export default {
     setup(props, context) {
         const { 
             createProject } = useProject()
+        
+        const { loadKudoboards } = useKudoboard()
 
         const projectForm = ref({
             name: ''
@@ -65,6 +68,7 @@ export default {
                 {
                     projectForm.value.name = ''
                     closeModal()
+                    loadKudoboards()
                     context.emit('reload')
                 }
             } 
