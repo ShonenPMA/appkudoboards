@@ -2,8 +2,8 @@
     <div 
         class="modal-background fade-in"
         @click.self="$emit('on:close')">
-        <div class="modal-container">
-            <h2>{{ title }} <font-awesome-icon icon="hand-holding-heart" /></h2>
+        <div class="modal-container" :class="customClass">
+            <h2>{{ title }} <font-awesome-icon v-if="show" icon="hand-holding-heart" /></h2>
             <slot></slot>
         </div>
     </div>
@@ -14,6 +14,15 @@ export default {
         title: {
             type:String,
             default: 'Custom Modal'
+        },
+        show: {
+          type: Boolean,
+          default: true
+        },
+        customClass:
+        {
+          type:String,
+          default: ''
         }
     },
     emits: ['on:close']
@@ -46,6 +55,10 @@ export default {
     {
        font-size: 24px;
        text-align: center;
+    }
+    &--h-auto
+    {
+      height: auto;
     }
 }
 

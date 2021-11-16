@@ -7,6 +7,9 @@
                     <div class="route">
                         <router-link :to="{ name: 'kudoboard-list'}">Kudoboards</router-link>
                     </div>
+                    <div class="route">
+                        <router-link :to="{ name: 'project-list'}">Projects</router-link>
+                    </div>
                 </div>
                 <div class="buttons">
                     <div class="route">
@@ -74,6 +77,12 @@ nav{
             justify-content: space-between;
             align-items: center;
             width: 70%;
+
+            .routes
+            {
+                display: flex;
+            }
+
             .route
             {
                 color: var(--white);
