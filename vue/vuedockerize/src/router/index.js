@@ -1,16 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
 
 import authRouter from '../modules/auth/router';
 import kudoboardRouter from '../modules/kudoboard/router';
 import projectRouter from '../modules/project/router';
+import teamRouter from '../modules/team/router';
+
 import isAuthenticatedGuard from '../modules/auth/router/auth-guard';
 const routes = [
   {
     path: '/',
     name: 'Home',
     beforeEnter: [ isAuthenticatedGuard ],
-    component: Home
+    redirect: {name: 'kudoboard-list'}
   },
   {
     path: '/auth',
@@ -26,6 +27,11 @@ const routes = [
     beforeEnter: [ isAuthenticatedGuard ],
     ...projectRouter
   },
+  {
+    path: '/team',
+    beforeEnter: [isAuthenticatedGuard],
+    ...teamRouter
+  }
 ]
 
 const router = createRouter({
