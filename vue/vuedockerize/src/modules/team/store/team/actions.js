@@ -58,6 +58,10 @@ export const editTeam = async({commit}, {data, id}) => {
         return {ok: false}
     }
 }
+export const removeTeam = async({commit}, id) => {
+    await generalApi.delete(`/team/${id}`)
+    commit('removeTeam', id)
+}
 
 export const loadMembers = async({commit}, id) => {
     const { data } = await generalApi.get(`/teamUser/${id}`)

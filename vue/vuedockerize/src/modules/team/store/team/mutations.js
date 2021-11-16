@@ -15,6 +15,10 @@ export const updateTeam = (state, team) => {
     state.teams[idx] = team
 }
 
+export const removeTeam = (state, id) => {
+    state.teams = state.teams.filter( e => e.id !== id)
+}
+
 export const setMembers = (state, members) => {
     state.members = [...members]
     state.isLoadingMembers = false
