@@ -26,6 +26,7 @@
 <script>
 import { defineAsyncComponent, ref } from 'vue'
 import useTeam from '../composables/useTeam'
+import useKudoboard from '../../kudoboard/composables/useKudoboard';
 export default {
     components:
     {
@@ -35,6 +36,7 @@ export default {
     setup(props, context) {
         const { 
             createTeam } = useTeam()
+        const { loadKudoboards } = useKudoboard()
 
         const teamForm = ref({
             name: ''
@@ -65,6 +67,7 @@ export default {
                 {
                     teamForm.value.name = ''
                     closeModal()
+                    loadKudoboards()
                     context.emit('reload')
                 }
             } 

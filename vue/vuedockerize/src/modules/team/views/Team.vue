@@ -48,6 +48,7 @@
 </template>
 <script>
 import useTeam from '../composables/useTeam'
+import useKudoboard from '../../kudoboard/composables/useKudoboard';
 import { watch, computed, ref } from 'vue';
 import {  useRouter } from 'vue-router';
 import Swal from 'sweetalert2';
@@ -74,6 +75,7 @@ export default {
             loadTeams,
             deleteTeam,
             } = useTeam(props.id)
+        const { loadKudoboards } = useKudoboard()
 
         loadGeneralMembers()
         let team = computed(() => null )
@@ -114,6 +116,7 @@ export default {
                 if(ok)
                 {
                     newMemberForm.value.memberSelected = ''
+                    
                 }
             },
             removeMember: async(id) => {
@@ -139,7 +142,10 @@ export default {
             editTeam: async() => {
                 const { ok} = await editCurrentTeam(teamName.value, props.id)
 
-                if(ok) loadTeams()
+                if(ok) {
+                    loadTeams()
+                    loadKudoboards()
+                }
             },
             removeTeam: async() => {
                 const { isConfirmed } = await Swal.fire({
@@ -160,6 +166,7 @@ export default {
                     await deleteTeam(props.id)
                     Swal.fire('Deleted', 'Team removed', 'success')
                     loadTeams()
+                    loadKudoboards()
                     router.push({ name: 'team-list' })
                 }
             }
