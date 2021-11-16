@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 
 import authRouter from '../modules/auth/router';
 import kudoboardRouter from '../modules/kudoboard/router';
+import projectRouter from '../modules/project/router';
 import isAuthenticatedGuard from '../modules/auth/router/auth-guard';
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/kudoboard',
     beforeEnter: [ isAuthenticatedGuard ],
     ...kudoboardRouter
+  },
+  {
+    path: '/project',
+    beforeEnter: [ isAuthenticatedGuard ],
+    ...projectRouter
   },
 ]
 
