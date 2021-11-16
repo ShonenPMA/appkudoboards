@@ -1,6 +1,8 @@
 <template>
     <div v-if="project" class="box">
-        <h1>{{ project.name}}</h1>
+        <form @submit.prevent="editProject">
+            <input class="title" type="text" v-model="projectName">
+        </form>
         <hr>
         <form @submit.prevent="onSubmit">
             <select v-model="newMemberForm.memberSelected">
@@ -65,11 +67,13 @@ export default {
             members,
             generalMembers,
             isLoadingMembers,
+            editCurrentProject,
+            loadProjects,
             } = useProject(props.id)
 
         loadGeneralMembers()
-
         let project = computed(() => null )
+        
         const loadProject = () => {
             loadMembers(props.id)
             project = computed( () => getProjectById(props.id))
@@ -78,9 +82,13 @@ export default {
         }
         loadProject()
 
+        const projectName =ref(project.value.name)
+
         const newMemberForm = ref({
             memberSelected: ''
         })
+
+        
         
         watch( 
             () => props.id,
@@ -92,6 +100,8 @@ export default {
             generalMembers,
             isLoadingMembers,
             newMemberForm,
+            projectName,
+            
 
             onSubmit: async() => {
                 const { ok } = await registerMember(newMemberForm.value, parseInt(props.id))
@@ -109,17 +119,22 @@ export default {
                     confirmButtonText: "Yes, I'm sure"
                 })
             
-            if(isConfirmed)
-            {
-                new Swal({
-                    title: 'Wait please...',
-                    allowOutsideClick: false
-                })
-                Swal.showLoading()
+                if(isConfirmed)
+                {
+                    new Swal({
+                        title: 'Wait please...',
+                        allowOutsideClick: false
+                    })
+                    Swal.showLoading()
 
-                await deleteMember(id)
-                Swal.fire('Deleted', 'Member removed', 'success')
-            }
+                    await deleteMember(id)
+                    Swal.fire('Deleted', 'Member removed', 'success')
+                }
+            },
+            editProject: async() => {
+                const { ok} = await editCurrentProject(projectName.value, props.id)
+
+                if(ok) loadProjects()
             }
         }
     }
@@ -130,10 +145,17 @@ export default {
 {
     padding: 2rem;
 
-    h1{
+    .title{
         text-align: left;
         letter-spacing: 0.5rem;
         margin-bottom: 2rem;
+        border: none;
+        font-size: 2rem;
+        border-bottom: 2px solid var(--indigo);
+        &:focus
+        {
+            outline: none;
+        }
     }
 
     form

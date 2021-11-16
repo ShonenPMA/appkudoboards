@@ -9,6 +9,7 @@ const useProject = ( ) => {
     const createProject = async(data) => await store.dispatch('project/createProject',data)
     const registerMember = async(data, id) => await store.dispatch('project/registerMember', {data, id})
     const deleteMember = async(id) => await store.dispatch('project/deleteMember', id)
+    const editCurrentProject = async(data, id) => await store.dispatch('project/editProject', {data,id})
    
     return {
 
@@ -18,6 +19,7 @@ const useProject = ( ) => {
         loadGeneralMembers,
         registerMember,
         deleteMember,
+        editCurrentProject,
         members: computed( () => store.state.project.members),
         generalMembers: computed( () => store.state.project.generalMembers),
         isLoading: computed( () => store.state.project.isLoading),

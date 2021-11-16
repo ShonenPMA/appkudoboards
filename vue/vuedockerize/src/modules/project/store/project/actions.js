@@ -46,6 +46,23 @@ export const createProject = async({commit}, projectForm) => {
     }
 }
 
+export const editProject = async({commit}, {data, id}) => {
+    
+    try {
+        const { data: response} = await generalApi.put(`/project/${id}`, {
+            name: data
+        })
+
+        if(!response.data) return {ok:false}
+
+        commit('updateProject', response.data)
+        return {ok: true}
+    } catch (error) {
+        return {ok: false}
+    }
+}
+
+
 export const loadMembers = async({commit}, id) => {
     const { data } = await generalApi.get(`/projectUser/${id}`)
     const members = data.data

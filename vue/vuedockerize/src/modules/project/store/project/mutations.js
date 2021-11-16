@@ -9,6 +9,12 @@ export const setProjects = (state, projects) => {
 export const addProject = (state, project) => {
     state.projects = [project, ...state.projects]
 }
+
+export const updateProject = (state, project) => {
+    const idx = state.projects.map(e => e.id).indexOf(project.id)
+    state.projects[idx] = project
+}
+
 export const addMember = (state, member) => {
     state.members = [member, ...state.members]
 }
