@@ -1,7 +1,9 @@
 # Kudoboards with Vue 3 and Composition API
+
 [Documentación en español](./README-es.md)
 
 [Read app docs](./vue/vuedockerize/README.md)
+
 ## Setup
 - For dev:
 > docker-compose up -d --build
