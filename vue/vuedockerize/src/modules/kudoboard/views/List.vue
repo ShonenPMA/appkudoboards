@@ -88,6 +88,11 @@ export default {
                 width: 100%;
                 margin-bottom: 2rem;
                 padding: 0.5rem 1rem;
+
+                @media (max-width: 767px)
+                {
+                    margin-bottom: 1rem;
+                }
             }
             textarea
             {
@@ -95,6 +100,11 @@ export default {
                 height: 500px;
                 width: 100%;
                 padding: 0.5rem 1rem;
+
+                @media (max-width: 767px)
+                {
+                    height: 250px;
+                }
             }
             button
             {
@@ -105,6 +115,13 @@ export default {
                 background-color: var(--green);
                 font-size: 1.2rem;
                 letter-spacing: 0.3rem;
+            }
+        }
+
+        h1{
+            @media (max-width: 767px)
+            {
+                font-size: 1.5rem;
             }
         }
     }

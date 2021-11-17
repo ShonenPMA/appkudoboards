@@ -75,6 +75,11 @@ export default {
 			&-list{
 				height: calc(100% - 100px);
 				padding-bottom: 100px;
+
+				@media (max-width: 767px)
+				{
+					max-width: 150px;
+				}
 			}
 
 			&-template{

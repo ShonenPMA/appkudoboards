@@ -33,5 +33,10 @@ export default {
     &:not(:last-child){
         margin-bottom: 1rem;
     }
+
+    @media (max-width: 767px)
+    {
+        font-size: 0.5rem;
+    }
 }
 </style>
