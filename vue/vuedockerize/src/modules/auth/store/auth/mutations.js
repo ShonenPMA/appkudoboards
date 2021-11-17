@@ -19,6 +19,7 @@ export const logout = (state) => {
     state.status = 'not-authenticated'
 
     localStorage.removeItem('token')
+    localStorage.removeItem('ws')
 }
 
 export const updateUser = (state, {user} ) => {

@@ -1,5 +1,5 @@
 import generalApi from "@/api/generalApi"
-
+import { notify } from "@kyvg/vue3-notification"
 // export const myAction = async(context) => {
 export const createUser = async( {commit}, user) => {
     const { name, email, password, password_confirmation, birth_date } = user
@@ -45,7 +45,6 @@ export const signInUser = async( {commit}, user) => {
             user,
             token
         })
-
         return { ok: true }
     } catch (error) {
         return { ok: false }
@@ -64,6 +63,27 @@ export const checkAuthentication = async({commit}) => {
          const { data } = await generalApi.get('/auth/currentUser')
          const {  user } = data.data
          commit('loginUser', { user, token })
+
+         if(!localStorage.getItem('ws'))
+         {
+            localStorage.setItem('ws','loaded')
+            window.Echo.private('hello')
+            .listen('TestEvent', (e) => {
+              console.log('testEvent',e)
+            })
+        
+            window.Echo.private(`kudo.sent.${user.id}`)
+            .listen('KudoSent', (e) => {
+                console.log('kudo received', e)            
+   
+               notify({
+                   title: e.sender.name+" has send you a Kudo 🎉",
+                   text: e.message,
+                   type: 'info'
+               });
+            })
+         }
+
 
          return { ok:true}
         

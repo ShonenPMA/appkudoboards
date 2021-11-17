@@ -17,6 +17,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import generalApi from './api/generalApi';
+import Notifications from '@kyvg/vue3-notification'
 library.add(
     faFolder,
     faHandHoldingHeart,
@@ -65,5 +66,6 @@ window.Echo = new Echo({
 createApp(App)
     .use(store)
     .use(router)
+    .use(Notifications)
     .component("font-awesome-icon", FontAwesomeIcon)
     .mount('#app')
