@@ -3,11 +3,7 @@
   <template v-else>
     <Navbar v-if="username" />
 
-    <router-view v-slot="{ Component }">
-        <keep-alive>
-          <component :is="Component" />
-        </keep-alive>  
-    </router-view>
+    <router-view />
   </template>
 </template>
 <style>
