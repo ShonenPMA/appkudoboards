@@ -39,6 +39,11 @@ export default {
     Navbar : defineAsyncComponent( () => import('./components/Navbar.vue'))
   },
   setup() {
+    window.Echo.private('hello')
+      .listen('TestEvent', (e) => {
+        console.log(e)
+      })
+
     const { 
       username,
       authStatus,

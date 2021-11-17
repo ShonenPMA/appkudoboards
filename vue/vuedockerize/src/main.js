@@ -16,7 +16,7 @@ import {
     faUserTie,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
+import generalApi from './api/generalApi';
 library.add(
     faFolder,
     faHandHoldingHeart,
@@ -43,7 +43,22 @@ window.Echo = new Echo({
     forceTLS: process.env.VUE_APP_WEBSOCKET_FORCE_TLS,
     encrypted: process.env.VUE_APP_WEBSOCKET_ENCRYPTED,
     disabledStats: process.env.VUE_APP_WEBSOCKET_DISABLED_STATS,
-    // authEndpoint: 'broadcasting/auth' si el socket no jala de raiz 
+    authorizer: (channel, options) => {
+        return {
+            authorize: (socketId, callback) => {
+                generalApi.post('/broadcasting/auth', {
+                    socket_id: socketId,
+                    channel_name: channel.name
+                })
+                .then(response => {
+                    callback(false, response.data);
+                })
+                .catch(error => {
+                    callback(true, error);
+                });
+            }
+        };
+    },
 });
 
 
