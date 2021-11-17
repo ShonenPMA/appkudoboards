@@ -31,6 +31,12 @@ export default {
 		background-color: var(--purple);
 		border-radius: 6px;
 		border-top: 8px solid var(--orange);
+		margin: 0 auto;
+
+		@media (max-width: 767px)
+		{
+			width: 60%;
+		}
 	}
 }
 </style>
