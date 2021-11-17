@@ -31,10 +31,10 @@ export default {
 <style lang="scss" scoped>
 .modal-background {
     position: fixed;
-    top: 0;
+    top: 108px;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 108px);
 
     display: flex;
     background-color: rgba(0, 0, 0, 0.5);
@@ -50,11 +50,20 @@ export default {
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     padding: 1rem;
+
+    @media (max-width: 767px)
+    {
+      max-width: 70%;
+    }
     
     h2
     {
        font-size: 24px;
        text-align: center;
+       @media (max-width: 767px)
+       {
+         font-size: 18px;
+       }
     }
     &--h-auto
     {
