@@ -54,6 +54,7 @@ export default {
     @media (max-width: 767px)
     {
       max-width: 70%;
+      height: 370px;
     }
     
     h2
