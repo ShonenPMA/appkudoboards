@@ -6,28 +6,15 @@ const useAuth = () => {
     
     const store = useStore()
 
-    const createUser = async(user) => {
-        const resp = await store.dispatch('auth/createUser', user)
-        return resp
-    }
-    const updateUser = async(user) => {
-        const resp = await store.dispatch('auth/updateUser', user)
-        return resp
-    }
-    const loginUser = async(user) => {
-        console.log('dispatch login...')
-        const resp = await store.dispatch('auth/signInUser', user)
-        return resp
-    }
+    const createUser = async(user) =>  await store.dispatch('auth/createUser', user)
+    const updateUser = async(user) => await store.dispatch('auth/updateUser', user)
+    const loginUser = async(user) => await store.dispatch('auth/signInUser', user)
 
     const logout = () => {
         store.commit('auth/logout')
         store.reset()
     }
-    const checkAuthStatus = async() => {
-        const resp = await store.dispatch('auth/checkAuthentication')
-        return resp
-    }
+    const checkAuthStatus = async() => await store.dispatch('auth/checkAuthentication')
 
     return {
         createUser,

@@ -4,6 +4,7 @@
     <Navbar v-if="username" />
 
     <router-view />
+    <notifications position="bottom left" />
   </template>
 </template>
 <style>
@@ -31,8 +32,9 @@ body
 }
 </style>
 <script>
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, onMounted } from 'vue'
 import useAuth from './modules/auth/composables/useAuth';
+import { useStore } from 'vuex';
 
 export default {
   components: {
@@ -42,13 +44,13 @@ export default {
     const { 
       username,
       authStatus,
-      checkAuthStatus } = useAuth()
-
-    checkAuthStatus()
+      kudo
+    } = useAuth()
 
     return {
       username,
-      authStatus
+      authStatus,
+      kudo
     }
   }
 }
