@@ -13,5 +13,13 @@
     justify-content: center;
     width: 100%;
     height: 100%;
+
+    h1{
+        @media (max-width:767px)
+        {
+            font-size: 1rem;
+            text-align: center;
+        }
+    }
 }
 </style>

@@ -104,10 +104,31 @@ export default {
 {
     padding: 2rem;
 
+    @media (max-width: 767px)
+    {
+        padding: 0.5rem;
+    }
+
     h1{
         text-align: center;
         letter-spacing: 0.5rem;
         margin-bottom: 2rem;
+
+        @media (max-width: 767px)
+        {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            letter-spacing: 3px;
+        }
+    }
+
+    h2{
+        @media (max-width: 767px)
+        {
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-align: center;
+        }
     }
 
     .kudo
@@ -117,6 +138,14 @@ export default {
         padding: 2rem;
         width: 24%;
         margin-bottom: 2rem;
+
+        @media (max-width: 767px)
+        {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            width: 100%;
+            font-size: 0.9em;
+        }
 
         &:nth-child(5n+2)
         {

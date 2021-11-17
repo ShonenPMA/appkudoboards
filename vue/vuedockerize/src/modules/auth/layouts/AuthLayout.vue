@@ -19,9 +19,10 @@ export default {
 	display:flex;
 	justify-content:center;
 	align-items: center;
-	height: 100vh;
+	min-height: calc(100vh - 108px);
 	width: 100vw;
 	background-color: #222;
+	padding-top: 108px;
 	
 	.wrapper
 	{
@@ -31,6 +32,12 @@ export default {
 		background-color: var(--purple);
 		border-radius: 6px;
 		border-top: 8px solid var(--orange);
+		margin: 0 auto;
+
+		@media (max-width: 767px)
+		{
+			width: 60%;
+		}
 	}
 }
 </style>

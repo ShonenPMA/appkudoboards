@@ -26,6 +26,12 @@ export default {
     letter-spacing: 0.3rem;
     padding-left: 1rem;
     color: var(--black);
+
+    @media(max-width: 767px)
+    {
+        padding-left: 0;
+        font-size: 0.5rem;
+    }
     
 
     &:not(:last-child){

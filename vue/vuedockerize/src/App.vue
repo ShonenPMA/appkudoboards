@@ -30,6 +30,23 @@ body
   --indigo: #A5B4FC;
   --black : #111827;
 }
+.only-mobile
+{
+  display: none !important;
+}
+
+@media (max-width: 767px)
+{
+  .only-desktop
+  {
+    display: none !important;
+  }
+  .only-mobile
+  {
+    display: inherit !important;
+  }
+}
+
 </style>
 <script>
 import { defineAsyncComponent, onMounted } from 'vue'

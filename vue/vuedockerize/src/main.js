@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { 
+    faBars,
     faFolder,
     faHandHoldingHeart,
     faPlus,
@@ -19,6 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import generalApi from './api/generalApi';
 import Notifications from '@kyvg/vue3-notification'
 library.add(
+    faBars,
     faFolder,
     faHandHoldingHeart,
     faPlus,

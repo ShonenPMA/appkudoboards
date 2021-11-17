@@ -179,6 +179,18 @@ export default {
 {
     padding: 2rem;
 
+    h2
+    {
+        font-size: 1rem;
+        letter-spacing: 3px;
+        text-align: center;
+    }
+
+    @media (max-width:767px)
+    {
+        padding: 0.5rem;
+    }
+
     .teamForms{
         display: flex;
         justify-content: space-between;
@@ -189,6 +201,19 @@ export default {
             cursor: pointer;
             color: var(--red);
             font-size: 2rem;
+            @media (max-width: 767px)
+            {
+                font-size: 1.2rem;
+            }
+        }
+
+        input
+        {
+            @media (max-width: 767px)
+            {
+                margin-bottom: 1rem;
+                font-size: 15px;
+            }
         }
     }
 
@@ -210,11 +235,22 @@ export default {
         display: flex;
         justify-content: space-between;
 
+        @media (max-width: 767px)
+        {
+            flex-wrap: wrap;
+        }
+
         select
         {
             padding: 0.5rem 1rem;
             outline: none;
             border-color: var(--indigo);
+            @media (max-width:767px)
+            {
+                width: 100%;
+                font-size: 11px;
+                padding: 0.5rem 0;
+            }
         }
         button
         {
@@ -226,6 +262,11 @@ export default {
                 color: gray;
                 cursor: not-allowed;
             }
+            @media (max-width: 767px)
+            {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
         }
         
     }
@@ -234,6 +275,11 @@ export default {
     {
         padding: 0.5rem 1rem;
         cursor: default;
+        @media (max-width:767px)
+        {
+            font-size: 12px;
+            padding: 0.5rem;
+        }
         .data
         {
              display: flex;
