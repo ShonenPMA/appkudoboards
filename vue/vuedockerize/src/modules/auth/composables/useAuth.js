@@ -22,6 +22,7 @@ const useAuth = () => {
 
     const logout = () => {
         store.commit('auth/logout')
+        store.reset()
     }
     const checkAuthStatus = async() => {
         const resp = await store.dispatch('auth/checkAuthentication')
