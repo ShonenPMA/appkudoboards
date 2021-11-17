@@ -43,6 +43,11 @@ export default {
         border-right: 1px solid #2c3e50;
         height: calc(100% - 4rem);
         padding: 2rem 1rem;
+
+        @media(max-width: 767px)
+        {
+            padding: 1rem 0.5rem;
+        }
     }
     &-search{
         width: 100%;
