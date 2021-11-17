@@ -80,6 +80,10 @@ export default {
 		.project {
 			&-list{
 				height: 100%;
+				@media (max-width: 767px)
+				{
+					max-width: 150px;
+				}
 			}
 
 			&-template{
