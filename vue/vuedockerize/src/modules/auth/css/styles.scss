@@ -7,6 +7,12 @@ span
     letter-spacing: 0.5rem;
     font-size: 2rem;
     color: var(--white);
+
+    @media (max-width: 767px)
+    {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
 }
 a
 {
@@ -25,6 +31,12 @@ form {
         padding: 1rem 0.5rem;
         outline: none;
         box-sizing: border-box;
+        
+        @media (max-width: 767px)
+        {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 0.3rem;
+        }
     }
 
     button
@@ -35,5 +47,12 @@ form {
         padding: 0.5rem 2rem;
         letter-spacing: 0.3rem;
         margin-top: 2rem;
+
+        @media (max-width: 767px)
+        {
+            padding: 0.5rem 0.7rem;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
     }
 }

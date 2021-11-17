@@ -19,9 +19,10 @@ export default {
 	display:flex;
 	justify-content:center;
 	align-items: center;
-	height: 100vh;
+	min-height: calc(100vh - 108px);
 	width: 100vw;
 	background-color: #222;
+	padding-top: 108px;
 	
 	.wrapper
 	{
