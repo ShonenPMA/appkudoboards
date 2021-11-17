@@ -2,7 +2,10 @@
     <nav>
         <div class="wrapper">
             <div class="logo">KUDO APP</div>
-            <div class="router">
+            <div class="open-menu only-mobile" @click="openMobile = !openMobile">
+                <font-awesome-icon icon="bars" />
+            </div>
+            <div class="router only-desktop">
                 <div class="routes">
                     <div class="route">
                         <router-link :to="{ name: 'kudoboard-list'}">Kudoboards</router-link>
@@ -26,12 +29,30 @@
                     </div>
                 </div>
             </div>
+            <div class="router only-mobile" v-if="openMobile">
+                <div class="router-wrapper" @click="openMobile = false">
+                    <div class="route">
+                        <router-link :to="{ name: 'kudoboard-list'}">Kudoboards</router-link>
+                    </div>
+                    <div class="route">
+                        <router-link :to="{ name: 'project-list'}">Projects</router-link>
+                    </div>
+                    <div class="route">
+                        <router-link :to="{ name: 'team-list'}">Teams</router-link>
+                    </div>
+                    <div class="route">
+                        <router-link :to="{ name: 'profile'}">Edit profile</router-link>
+                    </div>
+                    <div @click="logout" class="route">Logout</div>
+                </div>
+            </div>
         </div>
     </nav>
 </template>
 <script>
 import useAuth from '../modules/auth/composables/useAuth';
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 export default {
   setup() {
     const { username, logout } = useAuth()
@@ -41,7 +62,8 @@ export default {
       logout: () => {
           logout()
           router.push({ name: 'login' })
-      }
+      },
+      openMobile: ref(false)
     }
   }
 }
@@ -74,6 +96,14 @@ nav{
             font-weight: bold;
             font-size: 1.5rem;
         }
+
+        .open-menu
+        {
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
         .router
         {
             display:flex;
@@ -111,6 +141,37 @@ nav{
             {
                 display: flex;
                 justify-content: flex-end;
+            }
+
+
+            @media (max-width: 767px)
+            {
+                position: fixed;
+                top: 108px;
+                background-color: var(--purple);
+                width: 100vw;
+                left: 0;
+                height: calc(100vh - 108px);
+                flex-wrap: wrap;
+                align-items: flex-start;
+
+                &-wrapper
+                {
+                    height: auto;
+                    width: 100%;
+                    margin-top: 1rem;
+
+                    .route{
+                        width: 100%;
+                        text-align: center;
+                        margin-left: 0;
+
+                        &:not(:last-child)
+                        {
+                            margin-bottom: 2rem;
+                        }
+                    }
+                }
             }
         }
     }
